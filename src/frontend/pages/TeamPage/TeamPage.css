@@ -1,0 +1,17 @@
+.team-page {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 40px;
+}
+
+.team-content {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .team-page {
+    padding: 20px;
+  }
+}

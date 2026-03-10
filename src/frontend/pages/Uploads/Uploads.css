@@ -1,0 +1,247 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f0f2f5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+.uploads {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 30px 40px;
+}
+
+.nav-link.active {
+  color: #000;
+  border-bottom: 2px solid #000;
+}
+
+
+/* Основной белый контейнер с выпуклым эффектом */
+.uploads-container {
+  background: white;
+  border-radius: 32px;
+  padding: 40px;
+  box-shadow: 
+    0 20px 30px rgba(0, 0, 0, 0.08),
+    0 8px 12px rgba(0, 0, 0, 0.05),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.page-title2 {
+  font-size: 32px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+/* Контейнер для двух колонок */
+.content-wrapper {
+  display: flex;
+  gap: 40px;
+}
+
+/* Левая часть с блюдами */
+.dishes-wrapper {
+  flex: 2;
+}
+
+.dishes-main-title {
+  font-size: 24px;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin-bottom: 30px;
+  margin-top: 50px;
+}
+
+.dishes-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+/* Колонка блюда */
+.dish-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dish-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.dish-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.dish-counter {
+  font-size: 16px;
+  font-weight: 500;
+  color: #4a5568;
+}
+
+/* Блок готовности */
+.readiness-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.readiness-label {
+  font-size: 14px;
+  color: #4a5568;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 8px;
+  background-color: #edf2f7;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #000 0%, #333 100%);
+  border-radius: 20px;
+  transition: width 0.3s ease;
+}
+
+/* Список материалов */
+.materials-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 5px;
+}
+
+.material-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.material-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.material-format {
+  font-size: 14px;
+  color: #718096;
+}
+
+/* Правая часть с документами */
+.documents-block {
+  flex: 1;
+  min-width: 280px;
+}
+
+.documents-block-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 30px;
+}
+
+.documents-card {
+  background: #f8fafc;
+  border-radius: 24px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 
+    0 4px 6px rgba(0, 0, 0, 0.03),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.03);
+}
+
+.documents-card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.documents-number {
+  font-size: 48px;
+  font-weight: 700;
+  color: #000;
+  line-height: 1;
+  margin: 5px 0;
+}
+
+.documents-description {
+  font-size: 14px;
+  color: #4a5568;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.documents-btn {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 30px;
+  padding: 14px 20px;
+  font-weight: 600;
+  color: #000;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+  font-size: 15px;
+  margin-top: 10px;
+}
+
+.documents-btn:hover {
+  background: #000;
+  color: white;
+  border-color: #000;
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+  .content-wrapper {
+    flex-direction: column;
+  }
+  
+  .dishes-columns {
+    gap: 20px;
+  }
+  
+  .documents-block {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .uploads {
+    padding: 20px;
+  }
+  
+  .uploads-container {
+    padding: 25px;
+  }
+  
+  .dishes-columns {
+    grid-template-columns: 1fr;
+  }
+  
+  .page-title {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+}

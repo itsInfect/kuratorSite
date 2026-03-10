@@ -1,0 +1,129 @@
+// backend/prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Роли пользователей ───────────────────────────────────────────
+enum Role {
+  PARTICIPANT  // участник
+  JUDGE        // судья
+  ORGANIZER    // организатор
+}
+
+// ─── Статус верификации аккаунта ─────────────────────────────────
+enum VerificationStatus {
+  PENDING    // ожидает проверки
+  CONFIRMED  // подтверждён
+  REJECTED   // отклонён
+}
+
+// ─── Пользователи ────────────────────────────────────────────────
+model User {
+  id           Int                @id @default(autoincrement())
+  email        String             @unique
+  passwordHash String
+  fullName     String
+  phone        String?
+  city         String?
+  organization String?
+  role         Role               @default(PARTICIPANT)
+  status       VerificationStatus @default(PENDING)
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+
+  // Связи
+  teamMemberships TeamMember[]    // участник может быть в команде
+  scores          Score[]         // оценки, которые поставил судья
+  uploads         Upload[]        // загруженные файлы
+}
+
+// ─── Команды ─────────────────────────────────────────────────────
+model Team {
+  id        Int        @id @default(autoincrement())
+  name      String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  members   TeamMember[]
+  scores    Score[]
+  result    Result?
+}
+
+// ─── Участники команды ───────────────────────────────────────────
+model TeamMember {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  teamId    Int
+  role      String   @default("Участник") // "Участник", "Капитан", "Тренер"
+
+  user      User     @relation(fields: [userId], references: [id])
+  team      Team     @relation(fields: [teamId], references: [id])
+
+  @@unique([userId, teamId])
+}
+
+// ─── Загруженные файлы ───────────────────────────────────────────
+enum UploadType {
+  TECH_CARD    // технологическая карта (PDF/DOC)
+  DISH_PHOTO   // фото блюда (JPG/PNG)
+  DOCUMENT     // скан документа (паспорт, согласие и т.д.)
+}
+
+model Upload {
+  id          Int        @id @default(autoincrement())
+  userId      Int
+  filename    String     // имя файла на диске
+  originalName String   // оригинальное имя файла
+  mimetype    String
+  size        Int
+  type        UploadType
+  dishNumber  Int?       // номер блюда (1, 2, 3) — для TK и фото
+  createdAt   DateTime   @default(now())
+
+  user        User       @relation(fields: [userId], references: [id])
+}
+
+// ─── Оценки судей ────────────────────────────────────────────────
+// 5 критериев, у каждого свой максимальный балл
+model Score {
+  id          Int      @id @default(autoincrement())
+  judgeId     Int      // кто поставил
+  teamId      Int      // за какую команду
+  
+  // Критерии оценки (максимальные баллы задаются на фронте/в константах)
+  criterion1  Float    @default(0)  // макс. зависит от чемпионата
+  criterion2  Float    @default(0)
+  criterion3  Float    @default(0)
+  criterion4  Float    @default(0)
+  criterion5  Float    @default(0)
+
+  comment     String?  // комментарий судьи
+  photoProof  String?  // путь к фото нарушения
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  judge       User     @relation(fields: [judgeId], references: [id])
+  team        Team     @relation(fields: [teamId], references: [id])
+
+  @@unique([judgeId, teamId]) // каждый судья оценивает команду один раз
+}
+
+// ─── Итоговые результаты ─────────────────────────────────────────
+model Result {
+  id           Int      @id @default(autoincrement())
+  teamId       Int      @unique
+  avgScore     Float    // средний балл судей
+  penalty      Float    @default(0) // штрафные баллы
+  finalScore   Float    // avgScore - penalty
+  place        Int?     // итоговое место
+
+  team         Team     @relation(fields: [teamId], references: [id])
+  updatedAt    DateTime @updatedAt
+}
