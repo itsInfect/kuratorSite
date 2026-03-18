@@ -1,0 +1,52 @@
+.results-page {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 30px 40px;
+  box-sizing: border-box;
+}
+
+.results-page-content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.results-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #718096;
+}
+
+.results-nav-link {
+  text-decoration: none;
+  color: #4a5568;
+  font-weight: 500;
+}
+
+.results-nav-link:hover {
+  color: #000;
+}
+
+.results-nav-separator {
+  color: #a0aec0;
+}
+
+.results-nav-current {
+  font-weight: 600;
+  color: #000;
+}
+
+/* Адаптив */
+@media (max-width: 768px) {
+  .results-page {
+    padding: 16px;
+  }
+
+  .results-nav {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+}
