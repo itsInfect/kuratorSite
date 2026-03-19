@@ -93,3 +93,14 @@ export const getInitials = (fullName: string): string => {
     .join('')
     .toUpperCase();
 };
+
+// ─── Смена пароля ─────────────────────────────────────────────────
+export const changePassword = async (currentPassword: string, newPassword: string): Promise<void> => {
+  const res = await fetch(`${API_URL}/auth/password`, {
+    method: 'PATCH',
+    headers: authHeaders(),
+    body: JSON.stringify({ currentPassword, newPassword }),
+  });
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.error || 'Ошибка смены пароля');
+};

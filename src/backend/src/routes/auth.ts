@@ -152,3 +152,44 @@ router.get('/me', authMiddleware, async (req: Request, res: Response): Promise<v
 });
 
 export default router;
+
+// ─── PATCH /api/auth/password ─────────────────────────────────────
+// Смена пароля
+router.patch('/password', authMiddleware, async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+
+    if (!currentPassword || !newPassword) {
+      res.status(400).json({ error: 'Укажите текущий и новый пароль' });
+      return;
+    }
+
+    if (newPassword.length < 6) {
+      res.status(400).json({ error: 'Новый пароль должен быть не менее 6 символов' });
+      return;
+    }
+
+    const user = await prisma.user.findUnique({ where: { id: req.user!.userId } });
+    if (!user) {
+      res.status(404).json({ error: 'Пользователь не найден' });
+      return;
+    }
+
+    const isValid = await bcrypt.compare(currentPassword, user.passwordHash);
+    if (!isValid) {
+      res.status(401).json({ error: 'Текущий пароль неверен' });
+      return;
+    }
+
+    const passwordHash = await bcrypt.hash(newPassword, 10);
+    await prisma.user.update({
+      where: { id: req.user!.userId },
+      data: { passwordHash },
+    });
+
+    res.json({ message: 'Пароль успешно изменён' });
+  } catch (error) {
+    console.error('Password change error:', error);
+    res.status(500).json({ error: 'Ошибка при смене пароля' });
+  }
+});

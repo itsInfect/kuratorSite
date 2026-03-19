@@ -8,6 +8,7 @@ import path from 'path';
 import authRoutes from './routes/auth';
 import uploadRoutes from './routes/uploads';
 import teamRoutes from './routes/teams';
+import scoreRoutes from './routes/scores';
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 app.use('/api/auth', authRoutes);
 app.use('/api/uploads', uploadRoutes);
 app.use('/api/teams', teamRoutes);
+app.use('/api/scores', scoreRoutes);
 
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
