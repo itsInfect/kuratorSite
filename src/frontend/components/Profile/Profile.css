@@ -211,8 +211,8 @@ body {
 }
 
 .status-badge.success {
-  background: #1a1a1a;
-  color: white;
+  background: #F1F5F9;
+  color: #000;
   white-space: pre-line;
   text-align: center;
   line-height: 1.3;

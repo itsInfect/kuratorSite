@@ -10,7 +10,7 @@ const ResultsPage: React.FC = () => {
     maxScorePerDish: 100,
     maxScoreTotal: 300,
     finalScore: 284,
-    penalties: [{ reason: "Опоздание", points: -5 }]
+    penalties: [{ reason: "Опоздание", points: -3 }, { reason: "Несвоевременная подача", points: -2  }]
   };
 
   const judgeTables = [
@@ -18,17 +18,36 @@ const ResultsPage: React.FC = () => {
       judgeScores: [
         { criterion: "Mise en place", scorePerJudge: [5, 4, 5], total: 14 },
         { criterion: "Hygiene & Food waste", scorePerJudge: [9, 10, 10], total: 29 },
+        { criterion: "Hygiene & Food waste", scorePerJudge: [9, 10, 10], total: 29 },
+        { criterion: "Hygiene & Food waste", scorePerJudge: [9, 10, 10], total: 29 },
+        { criterion: "Hygiene & Food waste", scorePerJudge: [9, 10, 10], total: 29 }
       ],
       totalScore: 43,
       maxScore: 50,
     },
     {
       judgeScores: [
-        { criterion: "Work skills/Techniques", scorePerJudge: [17, 18, 17], total: 52 },
+        { criterion: "Mise en place", scorePerJudge: [5, 4, 5], total: 14 },
+        { criterion: "Hygiene & Food waste", scorePerJudge: [9, 10, 10], total: 29 },
+        { criterion: "Hygiene & Food waste", scorePerJudge: [9, 10, 10], total: 29 },
+        { criterion: "Hygiene & Food waste", scorePerJudge: [9, 10, 10], total: 29 },
+        { criterion: "Hygiene & Food waste", scorePerJudge: [9, 10, 10], total: 29 }
       ],
-      totalScore: 52,
-      maxScore: 60,
+      totalScore: 43,
+      maxScore: 50,
     },
+    {
+      judgeScores: [
+        { criterion: "Mise en place", scorePerJudge: [5, 4, 5], total: 14 },
+        { criterion: "Hygiene & Food waste", scorePerJudge: [9, 10, 10], total: 29 },
+        { criterion: "Hygiene & Food waste", scorePerJudge: [9, 10, 10], total: 29 },
+        { criterion: "Hygiene & Food waste", scorePerJudge: [9, 10, 10], total: 29 },
+        { criterion: "Hygiene & Food waste", scorePerJudge: [9, 10, 10], total: 29 }
+      ],
+      totalScore: 43,
+      maxScore: 50,
+    }
+    
   ];
 
   return (

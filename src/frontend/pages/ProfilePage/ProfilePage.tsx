@@ -8,7 +8,7 @@ import '../../components/Profile/Profile.css';
 const ProfilePage: React.FC = () => {
   return (
     <div className="cabinet-page">
-      <Header activePage="main" />
+      <Header activePage="profile" />
       <Profile />
     </div>
   );
